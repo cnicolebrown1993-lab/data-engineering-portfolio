@@ -198,3 +198,33 @@ from customers
 where state in ('FL','TX')
 and LastName like 'w%'
 order by lastname asc, firstname asc; 
+
+
+---insert practice data
+INSERT INTO Customers
+(
+    FirstName,
+    LastName,
+    Email,
+    Phone,
+    StreetAddress,
+    City,
+    State,
+    ZipCode,
+    DateOfBirth
+)
+VALUES
+('Olivia', 'Parker', NULL, '512-555-0182', '420 Oak Ridge Dr', 'Austin', 'TX', '78758', '1992-06-14'),
+
+('Benjamin', 'Cole', NULL, '813-555-1047', '812 Palm Ave', 'Tampa', 'FL', '33602', '1988-11-03'),
+
+('Sophia', 'Nguyen', NULL, '206-555-7721', '155 Harbor St', 'Seattle', 'WA', '98109', '1995-02-21');
+
+--alter table to allow null values
+alter table customers
+alter column email varchar(100) null;
+--reran the above insert now that email can be null
+select *
+from customers
+where email is null
+
