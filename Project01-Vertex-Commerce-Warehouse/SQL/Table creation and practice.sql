@@ -124,3 +124,57 @@ Select
 	From Customers 
 Group by city
 Order by TotalCustomers DESC;
+
+--Question: "I need a list of all customers whose last names begin with the letter J."
+Select firstname, lastname, city, state
+from customers
+where LastName like 'j%'
+order by lastname asc 
+
+--Question: which names appear more than once?
+Select
+	lastname,
+	count(*) as LastNameCount
+from customers
+group by lastname
+Having count(*)  >1
+
+--add customer
+INSERT INTO Customers
+(
+    FirstName,
+    LastName,
+    Email,
+    Phone,
+    StreetAddress,
+    City,
+    State,
+    ZipCode,
+    DateOfBirth
+)
+VALUES
+('Matthew','Rowle', 'mrowle@gmail.com','254-777-6589', '705 main car rd', 'Austin', 'TX', '76522', '1993-03-12');
+
+--Update new customer's last name
+select * 
+from customers
+where FirstName = ' Matthew'
+	and LastName = 'Rowle';
+--confirmed one row 
+Update customers
+set LastName ='Wilson'
+Where FirstName = 'Matthew'
+	and LastName = 'Rowle';
+--verification
+Select * 
+from customers
+where FirstName = 'Matthew'
+	and LastName = 'Wilson'
+
+--Question: which names appear more than once?
+Select
+	lastname,
+	count(*) as LastNameCount
+from customers
+group by lastname
+Having count(*)  >1
