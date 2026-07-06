@@ -178,3 +178,23 @@ Select
 from customers
 group by lastname
 Having count(*)  >1
+
+--I need a list of every customer born during the 1990s.
+
+select firstname, lastname, dateofbirth
+from customers
+where DateofBirth between '1990-01-01' and '1999-12-31'
+order by DateofBirth asc
+
+--Show all states customers live in, occurance once
+
+Select distinct State
+from customers
+order by state asc
+--"I only want customers who live in either Texas or Florida and whose last name starts with the letter 'W'."
+
+select FIRStname, lastname, state
+from customers	
+where state in ('FL','TX')
+and LastName like 'w%'
+order by lastname asc, firstname asc; 
