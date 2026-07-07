@@ -30,10 +30,10 @@ Select *
 From Orders;
 
 Select 
-	firstname,
-	lastname,
-	orderdate,
-	totalamount
-from customers
-inner join orders
-on customers.CustomerID = orders.CustomerID; 
+	c.firstname,
+	c.lastname,
+	o.orderdate,
+	o.totalamount
+from customers as c
+inner join orders as o
+	on c.CustomerID = o.CustomerID; 
