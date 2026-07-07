@@ -37,3 +37,13 @@ Select
 from customers as c
 inner join orders as o
 	on c.CustomerID = o.CustomerID; 
+
+select 
+	c.firstname,
+	c.lastname,
+	o.totalamount
+from customers as c
+inner join orders as o
+	on c.customerid=o.CustomerID
+Order by o.totalamount desc 
+	
