@@ -228,3 +228,52 @@ select *
 from customers
 where email is null
 
+--SQL review 
+select * 
+from customers
+
+select FIRSTname, lastname, email
+from customers
+
+select firstname, lastname, state
+from customers
+where state='TX'
+
+select firstname, lastname 
+from customers
+where state ='FL'
+and LastName like 'w%'
+order by LastName asc 
+
+select firstname, lastname, state
+from customers
+order by state asc
+
+Select firstname, lastname,state
+from customers
+order by LastName asc
+
+select count (*)
+from customers
+
+
+select distinct state
+from customers
+
+select count(distinct state)
+from customers
+
+select state,
+	count(*) as 'totalcustomers'
+from customers
+group by state
+
+select state,
+	count(*) as 'totalcustomers'
+from customers
+group by state
+having count (*) >2
+
+update customers
+set State ='CA'
+where CustomerID = 5
