@@ -177,4 +177,57 @@ Group by
 having 
 	sum(o.TotalAmount) >300
 
-	
+---Show every customer who has spent between $200 and $800 in total.
+select 
+	c.firstname,
+	c.lastname,
+	COALESCE(sum(o.totalamount),0) as TotalSpent
+from customers as c
+inner join orders as o
+	on c.CustomerID = o.CustomerID
+group by 
+	c.CustomerID,
+	c.FirstName,
+	c.LastName
+having 
+	SUM(o.TotalAmount) BETWEEN 200 AND 800
+Order by 
+	TotalSpent desc; 
+
+----Finance wants to know how many orders each customer has placed."
+select
+	c.firstname,
+	c.lastname, 
+	count(o.orderid) as NumberOfOrders
+from customers as c
+left join orders as o
+	on c.CustomerID = o.CustomerID
+group by 
+	c.CustomerID,
+	c.FirstName,
+	c.lastname
+order by 
+	NumberOfOrders desc,
+	c.lastname asc;
+
+--Show customers that have placed 2 orders and spent more than 300 total
+select 
+	c.firstname, 
+	c.lastname, 
+	COUNT(o.orderid) as NumberOfOrders,
+	sum(o.totalamount) as TotalAmountSpent
+from customers as c
+inner join orders as o
+	on c.CustomerID = o.CustomerID
+group by 
+	c.customerid,
+	c.firstname,
+	c.lastname
+having 
+	Sum(o.totalamount) > 300
+	and count(o.OrderID)>=2
+Order by 
+	TotalAmountSpent Desc,
+	C.lastname asc;
+
+
