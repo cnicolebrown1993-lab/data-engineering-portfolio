@@ -86,3 +86,55 @@ INNER JOIN Orders AS o
 	left join orders as o
 		on c.customerid=o.customerid
 	where o.totalamount is null
+
+	select 
+		c.firstname,
+		c.lastname,
+		sum(o.totalamount) as TotalSpent
+	from customers as c
+	left join orders as o
+		on c.customerid=o.customerid
+	group by 
+		c.CustomerID,
+		c.firstname,
+		c.LastName;
+	----Coalesce() to return 0 instead of a null
+	select
+		c.firstname,
+		c.lastname,
+		coalesce(sum(o.totalamount),0) as TotalSpent
+	from customers as c
+	left join orders as o
+		on c.CustomerID=o.CustomerID
+	group by 
+		c.CustomerID,
+		c.firstname,
+		c.LastName
+	order by TotalSpent desc
+---how many order did each customer place
+SELECT
+    c.FirstName,
+    c.LastName,
+    COUNT(o.OrderID) AS NumberOfOrders
+FROM Customers AS c
+LEFT JOIN Orders AS o
+    ON c.CustomerID = o.CustomerID
+GROUP BY
+    c.CustomerID,
+    c.FirstName,
+    c.LastName
+ORDER BY NumberOfOrders DESC;
+
+--Show top 5 customers by total spending 
+Select top 5
+	c.firstname,
+	c.lastname,
+	coalesce(sum (o.totalamount),0) as TotalSpending
+from customers as c
+left join orders as o
+	on c.customerid = o.customerid
+group by 
+	c.customerid,
+	c.firstname,
+	c.lastname
+order by TotalSpending desc;
