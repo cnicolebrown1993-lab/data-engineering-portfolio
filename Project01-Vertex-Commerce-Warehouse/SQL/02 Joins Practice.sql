@@ -46,4 +46,43 @@ from customers as c
 inner join orders as o
 	on c.customerid=o.CustomerID
 Order by o.totalamount desc 
-	
+
+--joins warm up 
+SELECT
+    c.FirstName,
+    c.LastName,
+    o.TotalAmount
+FROM Customers AS c
+INNER JOIN Orders AS o
+    ON c.CustomerID = o.CustomerID;
+
+	Select 
+		c.firstname,
+		c.lastname, 
+		o.totalamount
+	from customers as c
+	inner join orders as o
+		on c.customerid=o.CustomerID
+	where o.TotalAmount >200
+	order by o.TotalAmount desc
+
+	select *
+	from customers
+
+	--Left join practice
+	select
+		c.firstname,
+		c.lastname,
+		o.totalamount
+	from customers as c
+	left join orders as o
+		on c.CustomerID=o.CustomerID;
+	--missing value (question, who are the customers who never ordered from us)
+	select 
+		c.firstname,
+		c.lastname,
+		o.totalamount
+	from customers as c
+	left join orders as o
+		on c.customerid=o.customerid
+	where o.totalamount is null
