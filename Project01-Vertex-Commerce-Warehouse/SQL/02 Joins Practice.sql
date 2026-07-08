@@ -138,3 +138,43 @@ group by
 	c.firstname,
 	c.lastname
 order by TotalSpending desc;
+---Challenge 1 only show customers who actually placed an order
+select
+	c.firstname,
+	c.lastname,
+	o.orderdate,
+	o.totalamount
+from customers as c
+inner join orders as o
+	on c.customerid = o.customerid
+---Challenge 2 Show every customer who has placed more than one order
+select
+	c.firstname,
+	c.lastname,
+	count (o.orderid) as NumberOfOrders
+from customers as c
+inner join orders as o
+	on c.customerid = o.customerid
+group by 
+	c.CustomerID,
+	c.firstname,
+	c.lastname
+having count (o.OrderID) >1
+
+---"Can you show me every customer and the total amount they've spent? I only care about customers who have spent more than $300."
+--clarified "Show me only the customers whose total spending is greater than $300."
+select 
+	c.firstname,
+	c.lastname,
+	sum (o.totalamount) as TotalSpent
+from customers as c
+inner join orders as o
+	on c.CustomerID = o.CustomerID
+Group by 
+	c.CustomerID,
+	c.FirstName,
+	c.LastName
+having 
+	sum(o.TotalAmount) >300
+
+	
