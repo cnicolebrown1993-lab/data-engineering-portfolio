@@ -277,3 +277,40 @@ having count (*) >2
 update customers
 set State ='CA'
 where CustomerID = 5
+
+--day 3 practice and refresh for sql key concepts
+select firstname,lastname, state	
+from customers
+where state = 'TX'
+order by lastname asc;
+
+Select distinct city
+from customers
+order by city asc;
+
+Select city,
+	count(*) as 'total customer'
+from customers
+group by city;
+
+Select city, 
+	count(*) as 'total customer'
+from customers
+group by city
+having count(*) >1;
+
+update customers
+set state = 'FL'
+where CustomerID= 8; 
+
+select firstname, lastname, state
+from customers
+where state in ('TX','FL')
+	and LastName like 'b%'
+order by State asc,
+	lastname asc;
+
+
+
+
+
