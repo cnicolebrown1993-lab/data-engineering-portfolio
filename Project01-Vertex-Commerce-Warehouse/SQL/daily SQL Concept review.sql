@@ -62,6 +62,17 @@ from customers
 where LastName like '%son%'
 
 --Show customers who: live in TX, FL, or CA and whose last name starts with "B" or "W" Sort by: State and LastName 
-
+select 
+	firstname,
+	lastname,
+	state
+from customers
+where state in ('TX','FL','CA')
+	and (
+	LastName like 'b%' 
+	or lastname like 'w%'
+	)
+Order by state,
+	LastName;
 
 
