@@ -37,14 +37,14 @@ where CustomerID =4
 
 ---How many cities do we have cutomers in?
 Select distinct
-Count (state)
+Count (City) as NumberOfCities
 from customers;
 
 --show every unique zip code sort from lowest to highest
 select distinct 
 	zipcode
 from customers
-order by 'zipcode' desc,
+order by zipcode asc,
 
 --show every customer whos first name ends with a "Y"
 
@@ -59,8 +59,9 @@ select
 	firstname,
 	lastname
 from customers
-where LastName like '%son'
+where LastName like '%son%'
 
---
+--Show customers who: live in TX, FL, or CA and whose last name starts with "B" or "W" Sort by: State and LastName 
+
 
 
