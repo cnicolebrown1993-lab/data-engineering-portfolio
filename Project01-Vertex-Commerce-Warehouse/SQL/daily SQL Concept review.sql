@@ -142,5 +142,124 @@ FROM
 ) AS CustomerSpending
 GROUP BY CustomerSpending.State
 ORDER BY AverageCustomerSpend DESC;
+--Right, Full outer, Self join
+create table democustomers
+(
+	customerID int primary key, 
+	customerName varchar(50)
+);
 
+Create Table DemoOrders
+(
+	OrderID int primary key, 
+	CustomerID int,
+	TotalAmount Decimal(10,2)
+); 
 
+INSERT INTO DemoCustomers (CustomerID, CustomerName)
+VALUES
+(1, 'Amy'),
+(2, 'Bob'),
+(3, 'Charlie');
+
+Insert into DemoOrders (OrderID, customerID, TotalAmount)
+values
+(101, 1, 100.00),
+(102, 2, 200.00),
+(103, 999, 250.00);
+
+--table check
+--inner join
+select
+	c.customerid,
+	c.customername, 
+	o.orderid,
+	o.totalamount
+from democustomers as c
+inner join DemoOrders as o
+	on c.customerID=o.CustomerID;
+--left join
+select
+	c.customerid,
+	c.customername,
+	o.orderid,
+	o.totalamount
+from democustomers as c
+left join demoorders as o
+	on c.customerid = o.customerid;
+--right join
+select 
+	c.customerid,
+	c.customername, 
+	o.orderid,
+	o.customerid as ordercustomerid,
+	o.totalamount
+from democustomers as c
+right join DemoOrders as o
+	on c.customerID=o.CustomerID; 
+--full outer join
+select
+	c.customerid,
+	c.customername,
+	o.orderid,
+	o.customerid as ordercustomerid,
+	o.totalamount
+from democustomers as c
+full outer join DemoOrders as o
+	on c.customerID = o.CustomerID;
+--remove demo tables
+drop table DemoOrders;
+drop table democustomers;
+
+--Buidling new tables for full outer join
+create table DemoCustomers
+(
+	CustomerID int primary key,
+	CustomerName VarChar(50)
+);
+
+Create Table DemoOrders
+(
+	OrderID int primary key,
+	CustomerID int,
+	TotalAmount Decimal(10,2)
+);
+
+INSERT INTO DemoCustomers
+VALUES
+(1,'Amy'),
+(2,'Bob'),
+(3,'Charlie');
+
+INSERT INTO DemoOrders
+VALUES
+(101,1,100),
+(102,2,250),
+(103,999,500);
+
+Select
+	c.customerID,
+	c.CustomerName,
+	o.orderid,
+	o.customerid as OrderCustomerID,
+	o.totalamount
+from DemoCustomers as c
+full outer join DemoOrders as o
+	on c.CustomerID = o.CustomerID;
+
+Select
+	c.CustomerID,
+	c.CustomerName,
+	o.OrderID,
+	o.CustomerID as OrderCustomerID,
+	o.TotalAmount 
+from DemoCustomers as c
+full outer join DemoOrders as o
+	on c.CustomerID =  o.CustomerID
+where
+	c.CustomerID is null
+	or
+	o.OrderID is null;
+--self joins
+
+	
