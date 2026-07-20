@@ -41,3 +41,46 @@ HAVING SUM(o.TotalAmount) >
     ) AS CustomerSpending
 );
 --
+select * from orders;
+
+select *
+from
+(
+    select 
+        c.customerid,
+       sum(o.totalamount) as totalspent
+    from customers as c
+    inner join orders as o
+        on c.customerid = o.CustomerID
+    group by
+        c.CustomerID
+    ) as CustomerTotals;
+
+--CTE
+;With NumberofOrders as
+(
+    select
+       customerid,
+        count(OrderID) as NumberofOrders
+    from orders
+    group by CustomerID
+)
+Select * 
+from NumberofOrders;
+
+;with CustomerTotals as
+ (
+    select
+        customerid,
+        sum(totalamount) as totalSpent
+    from orders
+    group by customerid
+)Select 
+    Customerid,
+    avg(totalSpent) as averagespent
+from CustomerTotals
+where totalSpent >
+(
+    select AVG(TotalSpent)
+    From CustomerTotals
+); 
