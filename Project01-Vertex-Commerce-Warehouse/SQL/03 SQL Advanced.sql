@@ -84,3 +84,24 @@ where totalSpent >
     select AVG(TotalSpent)
     From CustomerTotals
 ); 
+
+with CustomerSummary as
+(
+    select
+        customerid,
+        sum(totalamount) as totalspent,
+        Count(OrderID) as numberoforders
+    from orders
+    group by customerid
+) 
+select
+    customerid,
+    numberoforders,
+    totalspent
+from CustomerSummary
+where numberoforders >=2
+and totalspent >
+(
+    select avg(totalspent)
+    from customersummary
+);
