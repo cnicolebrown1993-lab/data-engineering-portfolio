@@ -252,4 +252,63 @@ WHERE TotalSpent >
     SELECT AVG(TotalSpent)
     FROM CustomerSummary
 );
---
+--Show customers who have placed more than the average customer
+;WITH CustomerSummary AS
+(
+    SELECT
+        c.CustomerID,
+        c.FirstName,
+        c.LastName,
+        COUNT(o.OrderID) AS NumberOfOrders,
+        SUM(o.TotalAmount) AS TotalSpent
+    FROM Customers AS c
+    LEFT JOIN Orders AS o
+        ON c.CustomerID = o.CustomerID
+    GROUP BY
+        c.CustomerID,
+        c.FirstName,
+        c.LastName
+)
+SELECT
+    FirstName,
+    LastName,
+    NumberOfOrders
+FROM CustomerSummary
+WHERE NumberOfOrders >
+(
+    SELECT AVG(NumberOfOrders)
+    FROM CustomerSummary
+);
+--identify customers who are frequent and high value
+;WITH CustomerSummary AS
+(
+    SELECT
+        c.CustomerID,
+        c.FirstName,
+        c.LastName,
+        COUNT(o.OrderID) AS NumberOfOrders,
+        SUM(o.TotalAmount) AS TotalSpent
+    FROM Customers AS c
+    LEFT JOIN Orders AS o
+        ON c.CustomerID = o.CustomerID
+    GROUP BY
+        c.CustomerID,
+        c.FirstName,
+        c.LastName
+)
+SELECT
+    FirstName,
+    LastName,
+    NumberOfOrders,
+    TotalSpent
+FROM CustomerSummary
+WHERE NumberOfOrders >
+(
+    SELECT AVG(NumberOfOrders)
+    FROM CustomerSummary
+)
+AND TotalSpent >
+(
+    SELECT AVG(TotalSpent)
+    FROM CustomerSummary
+);
