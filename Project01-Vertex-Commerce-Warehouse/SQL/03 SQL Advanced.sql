@@ -312,3 +312,43 @@ AND TotalSpent >
     SELECT AVG(TotalSpent)
     FROM CustomerSummary
 );
+--Identify customers for a loytalty program
+; with CustomerSummary as 
+(
+    select 
+        c.customerid,
+        c.firstname,
+        c.lastname,
+        count(o.orderid) as NumberofOrders,
+        sum(o.TotalAmount) as TotalSpent
+    from customers as c
+    left join orders as o
+        on c.customerid = o.orderid
+    group by 
+        c.customerid,
+        c.firstname,
+        c.lastname
+),
+HighValueCustomers as 
+( 
+    select
+        customerid,
+        firstname,
+        lastname,
+        NumberofOrders,
+        TotalSpent
+    from CustomerSummary
+    Where TotalSpent >
+    ( 
+        select AVG(TotalSpent)
+        from CustomerSummary
+    )
+)
+
+Select 
+    firstname,
+    lastname,
+    numberoforders,
+    totalspent
+from HighValueCustomers
+--
